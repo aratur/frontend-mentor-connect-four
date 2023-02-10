@@ -5,12 +5,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 27px;
+  // padding-top: 27px;
   margin: 0 auto;
   width: 335px;
   margin-top: 50px;
+  margin-top: 2rem;
   margin-bottom: 40px;
   @include m.media('tablet', 'desktop') {
+    margin-top: 50px;
     width: 632px;
   }
   @include m.media('desktop') {

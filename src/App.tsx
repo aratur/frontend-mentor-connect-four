@@ -10,15 +10,14 @@ const GameWithContext = () => (
     <Game />
   </PlayerContextProvider>
 );
-// TODO: remove duplicated Game With Context
 
 const App = () => (
   <BrowserRouter>
     <Routes>
+      {/* for online comparison */}
+      <Route path="/" element={<GameWithContext />} />
       <Route path="/" element={<Menu />} />
-      <Route path="/game" element={<GameWithContext />}>
-        <Route path=":action" element={<GameWithContext />} />
-      </Route>
+      <Route path="/game" element={<GameWithContext />} />
       <Route path="/rules" element={<Rules />} />
       <Route path="*" element={<p>Incorrect URL</p>} />
     </Routes>
