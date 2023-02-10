@@ -83,8 +83,12 @@ class GridStateController {
       input.push(p);
     } else {
       const lastItem = input.at(-1);
-      // if in proximity push
-      if (lastItem && Math.abs(lastItem.columnNo - p.columnNo) <= 1) {
+      // if in proximity (of 1 in each direction) push
+      if (
+        lastItem &&
+        Math.abs(lastItem.columnNo - p.columnNo) <= 1 &&
+        Math.abs(lastItem.rowNo - p.rowNo) <= 1
+      ) {
         input.push(p);
       } else if (input.length < 4) {
         // if not empty and not in proximity,

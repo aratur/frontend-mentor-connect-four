@@ -32,9 +32,9 @@
   }
   @include m.media('desktop') {
     width: 147px;
-    height: 170px;
-    top: -13px;
-    padding-block: 50px 30px;
+    height: 164px;
+    top: -14px;
+    padding-block: 40px 30px;
   }
   @include m.media('mobile') {
     padding-inline: min(8.2vw, 32px);
