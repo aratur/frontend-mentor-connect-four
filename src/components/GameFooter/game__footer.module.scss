@@ -2,7 +2,7 @@
 
 .game__footer {
   position: relative;
-  top: -53px;
+  top: -56px;
   @include m.media('mobile') {
     top: -25px;
   }
@@ -40,6 +40,25 @@
     &[data-status^='won'] {
       transform: scale(0);
     }
+
+    .game__turn__background {
+      width: 197px;
+      height: 165px;
+      background-image: url('../../assets/images/turn-background-red.svg');
+
+      &[data-turn='2'] {
+        background-image: url('../../assets/images/turn-background-yellow.svg');
+      }
+    }
+    @keyframes turn_anime {
+      from {
+        filter: blur(5px);
+      }
+      to {
+        filter: blur(0px);
+      }
+    }
+
     .game__turn__label {
       position: absolute;
       text-align: center;
