@@ -1,28 +1,40 @@
 @use '../../sass/utils/mixins' as m;
 
 .game__board__slots {
-  top: 0px;
   position: absolute;
-  z-index: 300;
+  top: 0px;
+  overflow-y: hidden;
   display: grid;
-  padding: 11px;
-  grid-template-columns: repeat(7, 34px);
-  width: 100%;
+  padding-block: 11px;
+  padding-inline: 3px;
+  grid-template-columns: repeat(7, 47px);
+  // width: 100%;
   justify-content: space-between;
   @include m.media('tablet', 'desktop') {
-    padding: 20px;
-    grid-template-columns: repeat(7, 64px);
+    padding-block: 20px;
+    padding-inline: 8px;
+    grid-template-columns: repeat(7, 88px);
+  }
+  @include m.media('desktop') {
+    // this makes space for marker on top
+    // and at the same time allow for overflow-y hidden
+    // to hide player tokens sliding in
+    top: -40px;
+    padding-top: 60px;
   }
 }
 
 // contains markers for slots in the same column
 // as well as the animation of a token rolling down
 .grid__column_container {
+  width: 100%;
   position: relative;
   display: grid;
   grid-template-rows: repeat(6, 34px);
   height: 268px;
+  // z-index: 400;
   align-content: space-between;
+  justify-items: center;
   @include m.media('tablet', 'desktop') {
     grid-template-rows: repeat(6, 64px);
     height: 504px;
@@ -31,46 +43,72 @@
 
 .grid__item_slot {
   background-color: transparent;
-  border-radius: 10rem;
-  text-align: center;
+  border-radius: 2rem;
+
+  z-index: 300;
+  width: 34px;
+  @include m.media('tablet', 'desktop') {
+    width: 64px;
+  }
+
   padding: 0;
   border: none;
   outline: none;
   cursor: pointer;
-}
+  &[data-item='player1'],
+  &[data-item='winnerP1'] {
+    cursor: default;
+    background-image: url('../../assets/images/counter-red-small.svg');
 
-// .grid__item_slot:hover {
-//   background-color: hsla(246, 44%, 49%, 0.8);
-// }
-
-.grid__item_slot__player1 {
-  cursor: default;
-  background-image: url('../../assets/images/counter-red-small.svg');
-  @include m.media('tablet', 'desktop') {
-    background-image: url('../../assets/images/counter-red-large.svg');
+    @include m.media('tablet', 'desktop') {
+      background-image: url('../../assets/images/counter-red-large.svg');
+    }
   }
-}
-
-.grid__item_slot__winner {
-  outline: 4px solid white;
-  outline-offset: -12px;
-  @include m.media('tablet', 'desktop') {
-    outline: 8px solid white;
-    outline-offset: -20px;
+  &[data-item='player2'],
+  &[data-item='winnerP2'] {
+    background-image: url('../../assets/images/counter-yellow-small.svg');
+    @include m.media('tablet', 'desktop') {
+      background-image: url('../../assets/images/counter-yellow-large.svg');
+    }
   }
-}
 
-.grid__item_slot__player2 {
-  cursor: default;
-  background-image: url('../../assets/images/counter-yellow-small.svg');
-  @include m.media('tablet', 'desktop') {
-    background-image: url('../../assets/images/counter-yellow-large.svg');
+  // slide in animation
+  --fall-height: -280px;
+  @include m.media('desktop', 'tablet') {
+    --fall-height: -520px;
+  }
+  &[data-item^='player'],
+  &[data-item^='winner'] {
+    background-position: left -3px top -3px;
+    position: relative;
+    z-index: 200;
+    transform: translateY(var(--fall-height));
+    animation: slide_in 800ms cubic-bezier(0.33, 0, 0.66, 0.33) 100ms 1 normal
+      forwards;
+    cursor: default;
+  }
+
+  @keyframes slide_in {
+    from {
+      transform: translateY(var(--fall-height));
+    }
+    to {
+      transform: translateY(0px);
+    }
+  }
+
+  &[data-item^='winner'] {
+    outline: 4px solid white;
+    outline-offset: -12px;
+    @include m.media('tablet', 'desktop') {
+      outline: 8px solid white;
+      outline-offset: -20px;
+    }
   }
 }
 
 // Hover markers over the game board
 // visible at desktop width
-
 .grid_marker {
   position: absolute;
   width: 38px;
@@ -80,12 +118,12 @@
   background-repeat: no-repeat;
   left: 50%;
   transform: translateX(-50%) scale(0);
-  transition: transform 200ms ease-in-out;
+  transition: transform 100ms ease-in-out;
   top: -60px;
 }
 
 .grid__item_slot:is(:hover) ~ .grid_marker,
-.grid__column_empty:is(:hover) > .grid_marker {
+.grid__column_container:is(:hover) > .grid_marker {
   @include m.media('desktop') {
     transform: translateX(-50%) scale(1);
   }

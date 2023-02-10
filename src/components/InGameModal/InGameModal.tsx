@@ -17,15 +17,15 @@ const InGameModal = (props: Props) => {
         <h1 className="h1 heading_large fnt_white">Pause</h1>
         <div className={style.modal__buttons}>
           <Button buttonClass="white" onClick={onContinue}>
-            <h2 className="h2 heading_medium text_align_center">
+            <div className="h2 heading_medium text_align_center">
               Continue game
-            </h2>
+            </div>
           </Button>
           <Button buttonClass="white" onClick={onRestart}>
-            <h2 className="h2 heading_medium text_align_center">Restart</h2>
+            <div className="h2 heading_medium text_align_center">Restart</div>
           </Button>
           <Button buttonClass="quit" onClick={onQuit} linkTo="/">
-            <h2 className="h2 heading_medium text_align_center">Quit game</h2>
+            <div className="h2 heading_medium text_align_center">Quit game</div>
           </Button>
         </div>
       </div>

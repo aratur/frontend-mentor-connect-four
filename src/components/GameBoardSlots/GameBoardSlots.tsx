@@ -37,38 +37,6 @@ const GameBoardSlots = () => {
       : style.grid_marker__player_2;
   const markerClasses = [style.grid_marker, playerClass].join(' ');
 
-  const slotClassNames = (item: GridItem) => {
-    const classNames = [style.grid__item_slot];
-    switch (item) {
-      case 'isEmpty':
-        // do nothing
-        break;
-      case 'player1':
-        classNames.push(style.grid__item_slot__player1);
-        break;
-      case 'player2':
-        classNames.push(style.grid__item_slot__player2);
-        break;
-      case 'winnerP1':
-        classNames.push(style.grid__item_slot__player1);
-        classNames.push(style.grid__item_slot__winner);
-        break;
-      case 'winnerP2':
-        classNames.push(style.grid__item_slot__player2);
-        classNames.push(style.grid__item_slot__winner);
-        break;
-      case 'animatingP1':
-        // TODO: animate P1
-        break;
-      case 'animatingP2':
-        // TODO: animate P2
-        break;
-      default:
-        throw Error('Not implemented');
-    }
-    return classNames.join(' ');
-  };
-
   const doRollingAnimation = (columnData: Array<GridItem>) => {
     const animating = columnData.find((item) => item === 'animatingP1');
     if (animating === undefined) {
@@ -86,9 +54,12 @@ const GameBoardSlots = () => {
             onClick={() => handleOnClick(columnIndex, rowIndex)}
             key={`${columnIndex + 1}_${rowIndex + 1}`}
             disabled={gridItem !== 'isEmpty'}
-            className={slotClassNames(gridItem)}
+            data-item={gridItem}
+            className={style.grid__item_slot}
           >
-            {/* {columnIndex}-{rowIndex} */}
+            <div className="sr_only">
+              {columnIndex}-{rowIndex}
+            </div>
           </button>
         ))}
         <div className={markerClasses} />

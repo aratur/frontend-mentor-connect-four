@@ -13,10 +13,10 @@ const Menu = () => (
       />
       <div className={style.menu__buttons}>
         <Button buttonClass="vs_player" linkTo="/game">
-          <h1 className="h1 heading_medium">Play vs player</h1>
+          <div className="h1 heading_medium">Play vs player</div>
         </Button>
         <Button buttonClass="game_rules" linkTo="/rules">
-          <h2 className="h2 heading_medium">Game rules</h2>
+          <div className="h2 heading_medium">Game rules</div>
         </Button>
       </div>
     </div>

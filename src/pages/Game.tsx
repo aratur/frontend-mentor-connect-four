@@ -88,6 +88,7 @@ const Game = () => {
           onRestartClicked={handleRestartClicked}
         />
         <main className={style.game__main}>
+          <h1 className="sr_only">Game 4 in a row</h1>
           <PlayerScore player={1} points={player1Score} />
           <PlayerScore player={2} points={player2Score} />
           <div className={style.game__board}>
