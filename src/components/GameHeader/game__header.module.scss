@@ -1,0 +1,28 @@
+@use '../../sass/utils/mixins' as m;
+.game__header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 27px;
+  margin: 0 auto;
+  width: 335px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  @include m.media('tablet', 'desktop') {
+    width: 632px;
+  }
+  @include m.media('desktop') {
+    margin-bottom: 60px;
+  }
+  @include m.media('tablet') {
+    margin-bottom: 32px;
+  }
+}
+
+.game__header__logo_center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

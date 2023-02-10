@@ -1,0 +1,90 @@
+@use '../../sass/utils/mixins' as m;
+
+.game__player_1 {
+  grid-area: player-1;
+  margin-left: 30px;
+}
+
+.game__player_2 {
+  grid-area: player-2;
+  margin-right: 30px;
+}
+
+.game__player {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px 10px black;
+  @include m.media('tablet') {
+    flex-direction: row;
+    height: 100px;
+    width: 272px;
+    padding-inline: 45px;
+  }
+  @include m.media('desktop', 'mobile') {
+    flex-direction: column;
+    height: revert;
+    width: revert;
+  }
+  @include m.media('desktop') {
+    padding-inline: 30px;
+    padding-block: 50px 30px;
+  }
+  @include m.media('mobile') {
+    padding-inline: min(8.2vw, 32px);
+    padding-block: 16px 16px;
+  }
+}
+
+.game__player__name_fnt {
+  // heading XS
+  font-size: 16px;
+  line-height: 21px;
+  @include m.media('tablet', 'desktop') {
+    // heading small
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+.game__player__points_fnt {
+  font-size: 32px;
+  line-height: 41px;
+  @include m.media('tablet', 'desktop') {
+    // heading large
+    font-size: 56px;
+    line-height: 71px;
+  }
+}
+
+.game__player_1__icon,
+.game__player_2__icon {
+  width: 54px;
+  height: 59px;
+  position: absolute;
+  @include m.media('tablet', 'mobile') {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @include m.media('desktop') {
+    left: 50%;
+    transform: translateX(-50%);
+    top: -28px;
+  }
+}
+
+.game__player_1__icon {
+  @include m.media('tablet', 'mobile') {
+    left: -28px;
+  }
+}
+
+.game__player_2__icon {
+  @include m.media('tablet', 'mobile') {
+    right: -28px;
+  }
+}

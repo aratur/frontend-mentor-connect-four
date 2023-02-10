@@ -1,0 +1,59 @@
+@use '../sass/base/colors' as c;
+@use '../sass/utils/mixins' as m;
+
+.rules {
+  align-items: center;
+}
+
+.rules__main {
+  height: max-content;
+  position: relative;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 29px;
+  padding: 30px 20px 60px 20px;
+  @include m.media('tablet', 'desktop') {
+    padding: 30px 34px 60px 34px;
+  }
+  border-radius: 40px;
+  border: 3px solid black;
+  background-color: var(--clr-white);
+  box-shadow: 0px 10px black;
+  margin-block: 42px;
+  margin-inline: 1rem;
+}
+
+.rules__section {
+  @include m.media('tablet', 'desktop') {
+    width: 412px;
+  }
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  color: rgba(c.$black, 0.66);
+}
+
+.rules__section {
+  ol {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: my-counter;
+    li {
+      counter-increment: my-counter;
+      position: relative;
+      padding-left: 30px;
+    }
+    li::before {
+      content: counter(my-counter);
+      position: absolute;
+      left: 0px;
+    }
+  }
+}

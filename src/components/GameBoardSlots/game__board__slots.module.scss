@@ -1,0 +1,100 @@
+@use '../../sass/utils/mixins' as m;
+
+.game__board__slots {
+  top: 0px;
+  position: absolute;
+  z-index: 300;
+  display: grid;
+  padding: 11px;
+  grid-template-columns: repeat(7, 34px);
+  width: 100%;
+  justify-content: space-between;
+  @include m.media('tablet', 'desktop') {
+    padding: 20px;
+    grid-template-columns: repeat(7, 64px);
+  }
+}
+
+// contains markers for slots in the same column
+// as well as the animation of a token rolling down
+.grid__column_container {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(6, 34px);
+  height: 268px;
+  align-content: space-between;
+  @include m.media('tablet', 'desktop') {
+    grid-template-rows: repeat(6, 64px);
+    height: 504px;
+  }
+}
+
+.grid__item_slot {
+  background-color: transparent;
+  border-radius: 10rem;
+  text-align: center;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+// .grid__item_slot:hover {
+//   background-color: hsla(246, 44%, 49%, 0.8);
+// }
+
+.grid__item_slot__player1 {
+  cursor: default;
+  background-image: url('../../assets/images/counter-red-small.svg');
+  @include m.media('tablet', 'desktop') {
+    background-image: url('../../assets/images/counter-red-large.svg');
+  }
+}
+
+.grid__item_slot__winner {
+  outline: 4px solid white;
+  outline-offset: -12px;
+  @include m.media('tablet', 'desktop') {
+    outline: 8px solid white;
+    outline-offset: -20px;
+  }
+}
+
+.grid__item_slot__player2 {
+  cursor: default;
+  background-image: url('../../assets/images/counter-yellow-small.svg');
+  @include m.media('tablet', 'desktop') {
+    background-image: url('../../assets/images/counter-yellow-large.svg');
+  }
+}
+
+// Hover markers over the game board
+// visible at desktop width
+
+.grid_marker {
+  position: absolute;
+  width: 38px;
+  height: 36px;
+  background-size: cover;
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  transition: transform 200ms ease-in-out;
+  top: -60px;
+}
+
+.grid__item_slot:is(:hover) ~ .grid_marker,
+.grid__column_empty:is(:hover) > .grid_marker {
+  @include m.media('desktop') {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.grid_marker__player_1 {
+  background-image: url('../../assets/images/marker-red.svg');
+}
+
+.grid_marker__player_2 {
+  background-image: url('../../assets/images/marker-yellow.svg');
+}

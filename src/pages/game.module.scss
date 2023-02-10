@@ -1,0 +1,35 @@
+@use '../sass/utils/mixins' as m;
+
+.game__main {
+  display: grid;
+  // this padding is to compensate for
+  // black board overflow, since it has position absolute
+  // and is larger than other elements in the container
+  padding-bottom: 0.7rem;
+  @include m.media('mobile', 'tablet') {
+    justify-items: center;
+    column-gap: 35px;
+    grid-template-areas:
+      'player-1 player-2'
+      'board board';
+  }
+  @include m.media('mobile') {
+    column-gap: 15px;
+    row-gap: 37px;
+  }
+  @include m.media('tablet') {
+    row-gap: 20px;
+  }
+
+  @include m.media('desktop') {
+    column-gap: 60px;
+    align-content: center;
+    align-items: center;
+    grid-template-areas: 'player-1 board player-2';
+  }
+
+  .game__board {
+    grid-area: board;
+    position: relative;
+  }
+}

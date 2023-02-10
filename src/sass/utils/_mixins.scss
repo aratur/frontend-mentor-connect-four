@@ -1,0 +1,57 @@
+@use 'sass:map';
+@use 'sass:list';
+
+$breakpoint-desktop: 1440px;
+$breakpoint-tablet: 768px;
+
+$breakpoints: (
+  mobile: calc($breakpoint-tablet - 1px),
+  tablet: $breakpoint-tablet,
+  desktop: $breakpoint-desktop,
+);
+
+$breakpoint-mobile: calc($breakpoint-tablet - 1px);
+
+@mixin media($args...) {
+  @each $arg in $args {
+    @if not map.get($breakpoints, $arg) {
+      @error "L0: #{$breakpoints} are missing the argument #{$arg}";
+    }
+  }
+
+  @if list.length($args) == 2 {
+    @if list.index($args, 'mobile') and list.index($args, 'tablet') {
+      @media (max-width: calc($breakpoint-desktop - 1px)) {
+        @content;
+      }
+    } @else if list.index($args, 'tablet') and list.index($args, 'desktop') {
+      @media (min-width: map.get($breakpoints, 'tablet')) {
+        @content;
+      }
+    } @else if list.index($args, 'mobile') and list.index($args, 'desktop') {
+      @media (max-width: map.get($breakpoints, 'mobile')) or (min-width: map.get($breakpoints, 'desktop')) {
+        @content;
+      }
+    } @else {
+      @error 'L1: incorrect parameter list used #{$args}.';
+    }
+  } @else if list.length($args) == 1 {
+    @if list.index($args, 'mobile') {
+      @media (max-width: $breakpoint-mobile) {
+        @content;
+      }
+    } @else if list.index($args, 'tablet') {
+      @media (min-width: $breakpoint-tablet) and (max-width: calc($breakpoint-desktop - 1px)) {
+        @content;
+      }
+    } @else if list.index($args, 'desktop') {
+      @media (min-width: $breakpoint-desktop) {
+        @content;
+      }
+    } @else {
+      @error 'L2: incorrect parameter list used #{$args}.';
+    }
+  } @else {
+    @error 'L3: incorrect no of parameters used #{$args}.';
+  }
+}

@@ -1,0 +1,10 @@
+@use './colors' as *;
+
+:root {
+  --clr-black: #{$black};
+  --clr-purple: #{$purple};
+  --clr-purple-2: #{$purple-2};
+  --clr-pink: #{$pink};
+  --clr-orange: #{$orange};
+  --clr-white: #{$white};
+}

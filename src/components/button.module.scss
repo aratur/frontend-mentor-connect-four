@@ -1,0 +1,101 @@
+@use '../sass/base/typography' as t;
+@use '../sass/utils/mixins' as m;
+
+.button_vs_cpu,
+.button_vs_player,
+.button_quit,
+.button_white,
+.button_basic,
+.button_ok {
+  background: none;
+}
+
+.button {
+  border: none;
+  display: inline-block;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+.button_basic {
+  box-sizing: border-box;
+  color: white;
+  background-color: var(--clr-purple);
+  border-radius: 4rem;
+  height: 39px;
+  padding-block: 9px 10px;
+  padding-inline: 21px;
+  &:hover {
+    background-color: var(--clr-pink);
+  }
+}
+
+.button_vs_player,
+.button_game_rules,
+.button_white,
+.button_quit {
+  width: 255px;
+  padding-top: 21px;
+  border-radius: 20px;
+  padding-bottom: 20px;
+  padding-inline: 20px;
+  border: 3px solid var(--clr-black);
+  box-shadow: 0px 10px black;
+  @include m.media('tablet', 'desktop') {
+    width: 360px;
+  }
+}
+
+.button_vs_player,
+.button_game_rules {
+  width: 295px;
+}
+
+:is(.button_vs_player, .button_white, .button_quit, .button_game_rules):is(
+    :hover,
+    :focus
+  ) {
+  box-shadow: 0px 10px 1px var(--clr-purple);
+  border-color: var(--clr-purple);
+}
+
+.button_vs_player {
+  text-align: left;
+  background-color: var(--clr-orange, red);
+  background-image: url('../assets/images/player-vs-player.svg');
+  background-repeat: no-repeat;
+  background-position: right 6% bottom 50%;
+}
+
+.button_white,
+.button_game_rules {
+  background-color: var(--clr-white, red);
+}
+.button_quit {
+  background-color: var(--clr-pink, red);
+}
+
+.button_ok {
+  position: absolute;
+  bottom: -36px;
+  background-image: url('../assets/images/icon-check.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 64px;
+  height: 69px;
+  &:hover::after {
+    transform: scale(1);
+  }
+}
+
+.button_ok::after {
+  transform: scale(0);
+  position: absolute;
+  content: '';
+  outline: 3px solid var(--clr-purple);
+  outline-offset: -3px;
+  box-shadow: 0px 8px var(--clr-purple);
+  border-radius: 10rem;
+  width: 64px;
+  height: 64px;
+}
