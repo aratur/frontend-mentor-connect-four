@@ -57,9 +57,9 @@ const GameBoardSlots = () => {
             data-item={gridItem}
             className={style.grid__item_slot}
           >
-            <div className="sr_only">
+            <span className="sr_only">
               {columnIndex}-{rowIndex}
-            </div>
+            </span>
           </button>
         ))}
         <div className={markerClasses} />

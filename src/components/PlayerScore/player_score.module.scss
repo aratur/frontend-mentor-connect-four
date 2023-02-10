@@ -33,6 +33,7 @@
   @include m.media('desktop') {
     width: 147px;
     height: 176px;
+    top: -11px;
     padding-block: 50px 30px;
   }
   @include m.media('mobile') {

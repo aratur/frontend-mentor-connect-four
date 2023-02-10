@@ -18,12 +18,12 @@ const PlayerScore = (props: Props) => {
         player === 1 ? style.game__player_1 : style.game__player_2,
       ].join(' ')}
     >
-      <h3 className={['h3', style.game__player__name_fnt].join(' ')}>
+      <div className={['h3', style.game__player__name_fnt].join(' ')}>
         Player {player}
-      </h3>
-      <h4 className={['h4', style.game__player__points_fnt].join(' ')}>
+      </div>
+      <div className={['h4', style.game__player__points_fnt].join(' ')}>
         {points}
-      </h4>
+      </div>
       <img
         src={player === 1 ? playerOne : playerTwo}
         alt="smiling face"

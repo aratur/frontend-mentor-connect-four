@@ -22,7 +22,7 @@
   }
 
   @include m.media('desktop') {
-    column-gap: 60px;
+    column-gap: 57px;
     align-content: center;
     align-items: center;
     grid-template-areas: 'player-1 board player-2';
