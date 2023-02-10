@@ -2,7 +2,7 @@
 
 .game__footer {
   position: relative;
-  top: -56px;
+  top: -54px;
   @include m.media('mobile') {
     top: -25px;
   }
@@ -36,26 +36,28 @@
     z-index: 400;
     width: max-content;
     transform: scale(1);
-    transition: transform 500ms ease-out;
     &[data-status^='won'] {
+      transition: transform 500ms ease-in 1600ms;
       transform: scale(0);
     }
-
     .game__turn__background {
-      width: 197px;
-      height: 165px;
-      background-image: url('../../assets/images/turn-background-red.svg');
-
-      &[data-turn='2'] {
-        background-image: url('../../assets/images/turn-background-yellow.svg');
-      }
+      transition: fill 200ms linear 200ms;
     }
+    &[data-turn='1'] .game__turn__background {
+      fill: var(--clr-pink);
+    }
+    &[data-turn='2'] .game__turn__background {
+      fill: var(--clr-orange);
+    }
+
     @keyframes turn_anime {
       from {
-        filter: blur(5px);
+        filter: invert(43%) sepia(96%) saturate(1572%) hue-rotate(162deg)
+          brightness(96%) contrast(101%);
       }
       to {
-        filter: blur(0px);
+        filter: invert(100%) sepia(74%) saturate(2151%) hue-rotate(312deg)
+          brightness(103%) contrast(103%);
       }
     }
 
@@ -66,6 +68,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: max-content;
+      transition: color 100ms linear 300ms;
       &[data-turn='1'] {
         color: white;
       }
@@ -89,8 +92,8 @@
       display: inline;
     }
     transform: scale(0);
-    transition: transform 500ms ease-in;
     &[data-status^='won'] {
+      transition: transform 500ms ease-in 1200ms;
       transform: scale(1);
     }
   }

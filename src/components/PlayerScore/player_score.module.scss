@@ -32,8 +32,8 @@
   }
   @include m.media('desktop') {
     width: 147px;
-    height: 176px;
-    top: -1rem;
+    height: 170px;
+    top: -13px;
     padding-block: 50px 30px;
   }
   @include m.media('mobile') {

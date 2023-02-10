@@ -13,7 +13,7 @@ const GameHeader = (props: Props) => {
   return (
     <header className={style.game__header}>
       <Button buttonClass="basic" onClick={onMenuClick}>
-        <div className="h4">Menu</div>
+        <span className="h4">Menu</span>
       </Button>
       <img
         className={style.game__header__logo_center}
@@ -21,7 +21,7 @@ const GameHeader = (props: Props) => {
         alt="logo with four dots"
       />
       <Button buttonClass="basic" onClick={onRestartClicked}>
-        <div className="h4"> Restart</div>
+        <span className="h4">Restart</span>
       </Button>
     </header>
   );
