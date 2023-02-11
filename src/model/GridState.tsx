@@ -3,9 +3,7 @@ export type GridItem =
   | 'player1'
   | 'player2'
   | 'winnerP1'
-  | 'winnerP2'
-  | 'animatingP1'
-  | 'animatingP2';
+  | 'winnerP2';
 export type GridState = Array<Array<GridItem>>;
 export type Position = {
   columnNo: number;

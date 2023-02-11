@@ -201,6 +201,31 @@ class GridStateController {
     return validPosition;
   }
 
+  private avoidNaiveMove(): Position | undefined {
+    const bottomRowState = this.gridState.map((columnData) =>
+      columnData.at(-1)
+    );
+    const emptySlots = bottomRowState.filter(
+      (item) => item !== undefined && item === 'isEmpty'
+    );
+
+    if (emptySlots.length === 4 || emptySlots.length === 3) {
+      // place a token next to the opponent
+      const nextBestMove = bottomRowState.findIndex(
+        (emptySlot, indexOfEmptySlot) =>
+          emptySlot === 'isEmpty' &&
+          bottomRowState.some(
+            (player1Slot, indexOfPlayer1Slot) =>
+              player1Slot === 'player1' &&
+              Math.abs(indexOfEmptySlot - indexOfPlayer1Slot) === 1
+          )
+      );
+      if (nextBestMove !== -1)
+        return { columnNo: nextBestMove, rowNo: rows - 1 };
+    }
+    return undefined;
+  }
+
   public computeNextCpuMove(): Position {
     // 1st check if CPU can win, in the current move, if yes return coordinates;
     const winningCoordinates = this.checkIfCpuCanWinNow();
@@ -212,7 +237,21 @@ class GridStateController {
 
     // 3rd make a non-winning and non-blocking move
     // a simple strategy is to randomly place the token
-    return this.makeARandomMove();
+    const aRandomMove = this.makeARandomMove();
+
+    // 4th check if by step 3, you allow P1 to win
+    // if yes select randomly something again
+    // it may happen that it will be the same coordinate
+    // I don't want to make this too smart so it's fine
+    const simController = new GridStateController(this.gridState);
+    simController.applyChange(aRandomMove, 2);
+    if (simController.isFinished) return this.makeARandomMove();
+
+    // 5th avoid naive loose at the start of the game
+    const avoidNaiveMove = this.avoidNaiveMove();
+    if (avoidNaiveMove !== undefined) return avoidNaiveMove;
+
+    return aRandomMove;
   }
 
   public isDraw(): boolean {
