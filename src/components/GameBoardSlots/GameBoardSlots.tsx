@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import style from './game__board__slots.module.scss';
-import { GridItem, GridState } from '../../model/GridState';
+import { GridState } from '../../model/GridState';
 import GridStateController from '../../controller/GridStateController';
 import { PlayerTurn, PlayerTurnContext } from '../../context/PlayerTurnContext';
 
@@ -67,14 +67,6 @@ const GameBoardSlots = (props: Props) => {
       : style.grid_marker__player_2;
   const markerClasses = [style.grid_marker, playerClass].join(' ');
 
-  const doRollingAnimation = (columnData: Array<GridItem>) => {
-    const animating = columnData.find((item) => item === 'animatingP1');
-    if (animating === undefined) {
-      return null;
-    }
-    return <div className="animate" />;
-  };
-
   const buildGridState = () =>
     gridState.map((columnData, columnIndex) => (
       <div key={`${columnIndex + 1}`} className={style.grid__column_container}>
@@ -93,7 +85,6 @@ const GameBoardSlots = (props: Props) => {
           </button>
         ))}
         <div className={markerClasses} />
-        {doRollingAnimation(columnData)}
       </div>
     ));
 
