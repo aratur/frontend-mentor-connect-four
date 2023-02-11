@@ -15,6 +15,12 @@ class GridStateController {
 
   public isFinished = false;
 
+  private archPositionsInARow: PositionsInARow = [];
+
+  public get getPositionsInARow(): PositionsInARow {
+    return this.archPositionsInARow;
+  }
+
   constructor(gridState: GridState) {
     const copyOfGridState = [...gridState.map((r) => [...r])];
     this.gridState = copyOfGridState;
@@ -35,7 +41,7 @@ class GridStateController {
     const lastEmptyCellRow = column.reduce<number>(
       (result, currentValue, currentIndex) =>
         currentValue === 'isEmpty' ? currentIndex : result,
-      p.rowNo
+      -1
     );
     return { columnNo: targetColumn, rowNo: lastEmptyCellRow };
   }
@@ -55,15 +61,17 @@ class GridStateController {
 
   applyChange(p: Position, playerTurn: number) {
     const targetPosition = this.translateToValidTargetPosition(p);
-    this.updateValue(targetPosition, playerTurn);
-    const fourInARow = this.getFourInARow(targetPosition, playerTurn);
+    if (targetPosition.rowNo !== -1) {
+      this.updateValue(targetPosition, playerTurn);
+      const fourInARow = this.getFourInARow(targetPosition, playerTurn);
 
-    if (fourInARow.length >= 1) {
-      this.isFinished = true;
-      this.markWinners(
-        fourInARow.map((item) => item.playerTokens).flat(),
-        playerTurn
-      );
+      if (fourInARow.length >= 1) {
+        this.isFinished = true;
+        this.markWinners(
+          fourInARow.map((item) => item.playerTokens).flat(),
+          playerTurn
+        );
+      }
     }
   }
 
@@ -137,12 +145,80 @@ class GridStateController {
       filteredLinesToCheck,
       playerTurn
     );
+    this.archPositionsInARow = positionsInARow;
     const fourInARow = this.filterFourInARow(positionsInARow);
     return fourInARow;
   }
 
   static getInitialState(): Array<Array<GridItem>> {
     return new Array(cols).fill(new Array(rows).fill('isEmpty'));
+  }
+
+  private checkIfCpuCanWinNow(): Position | undefined {
+    // CPU is always the second player;
+    const playerTurn = 2;
+    // see what could happen on each move
+    const rowNo = 0;
+    for (let columnNo = 0; columnNo < cols; columnNo += 1) {
+      const newGridStateController = new GridStateController(this.gridState);
+      newGridStateController.applyChange({ columnNo, rowNo }, playerTurn);
+      if (newGridStateController.isFinished) {
+        return { columnNo, rowNo };
+      }
+    }
+    return undefined;
+  }
+
+  private checkIfPlayer1IsAboutToWinAndBlock(): Position | undefined {
+    // CPU is always the second player;
+    // but we are interested in counting opponents positions in the game;
+    const playerTurn = 1;
+    // see what could happen on each move
+    const rowNo = 0;
+    for (let columnNo = 0; columnNo < cols; columnNo += 1) {
+      const newGridStateController = new GridStateController(this.gridState);
+      newGridStateController.applyChange({ columnNo, rowNo }, playerTurn);
+      if (newGridStateController.isFinished) {
+        return { columnNo, rowNo };
+      }
+    }
+    return undefined;
+  }
+
+  /**
+   * Returns a random integer between min (inclusive) and max (inclusive).
+   */
+  private getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  private makeARandomMove(): Position {
+    let validPosition = { rowNo: -1, columnNo: -1 };
+    while (validPosition.rowNo === -1) {
+      validPosition = { rowNo: -1, columnNo: this.getRandomInt(0, cols) };
+      validPosition = this.translateToValidTargetPosition(validPosition);
+    }
+    return validPosition;
+  }
+
+  public computeNextCpuMove(): Position {
+    // 1st check if CPU can win, in the current move, if yes return coordinates;
+    const winningCoordinates = this.checkIfCpuCanWinNow();
+    if (winningCoordinates !== undefined) return winningCoordinates;
+
+    // 2nd check if player 1 is about to win, and block that move
+    const blockPlayer1 = this.checkIfPlayer1IsAboutToWinAndBlock();
+    if (blockPlayer1 !== undefined) return blockPlayer1;
+
+    // 3rd make a non-winning and non-blocking move
+    // a simple strategy is to randomly place the token
+    return this.makeARandomMove();
+  }
+
+  public isDraw(): boolean {
+    return (
+      this.gridState.flat().filter((item) => item === 'isEmpty').length === 0
+    );
   }
 
   public get GridState() {

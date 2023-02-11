@@ -14,9 +14,10 @@ const GameWithContext = () => (
 const App = () => (
   <BrowserRouter>
     <Routes>
+      {/* for online comparison */}
       <Route path="/" element={<Menu />} />
-      <Route path="/" element={<GameWithContext />} />
       <Route path="/game" element={<GameWithContext />} />
+      <Route path="/game/cpu" element={<GameWithContext />} />
       <Route path="/rules" element={<Rules />} />
       <Route path="*" element={<p>Incorrect URL</p>} />
     </Routes>

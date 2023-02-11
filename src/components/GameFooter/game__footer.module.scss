@@ -36,7 +36,8 @@
     z-index: 400;
     width: max-content;
     transform: scale(1);
-    &[data-status^='won'] {
+    &[data-status^='won'],
+    &[data-status='draw'] {
       transition: transform 500ms ease-in 1600ms;
       transform: scale(0);
     }
@@ -92,7 +93,8 @@
       display: inline;
     }
     transform: scale(0);
-    &[data-status^='won'] {
+    &[data-status^='won'],
+    &[data-status='draw'] {
       transition: transform 500ms ease-in 1200ms;
       transform: scale(1);
     }

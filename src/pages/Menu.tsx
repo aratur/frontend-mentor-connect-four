@@ -12,11 +12,14 @@ const Menu = () => (
         alt="logo with four circles"
       />
       <div className={style.menu__buttons}>
+        <Button buttonClass="vs_cpu" linkTo="/game/cpu">
+          <span className="h1 heading_medium">Play vs CPU</span>
+        </Button>
         <Button buttonClass="vs_player" linkTo="/game">
-          <div className="h1 heading_medium">Play vs player</div>
+          <span className="h1 heading_medium">Play vs player</span>
         </Button>
         <Button buttonClass="game_rules" linkTo="/rules">
-          <div className="h2 heading_medium">Game rules</div>
+          <span className="h2 heading_medium">Game rules</span>
         </Button>
       </div>
     </div>

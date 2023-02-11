@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
 import style from './game.module.scss';
 import InGameModal from '../components/InGameModal/InGameModal';
@@ -16,6 +17,9 @@ const Game = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
+
+  const location = useLocation();
+  const isCPU = location.pathname === '/game/cpu';
 
   const resetToInitialState = useCallback(() => {
     setIsPaused(false);
@@ -89,15 +93,15 @@ const Game = () => {
         />
         <main className={style.game__main}>
           <h1 className="sr_only">Game 4 in a row</h1>
-          <PlayerScore player={1} points={player1Score} />
-          <PlayerScore player={2} points={player2Score} />
+          <PlayerScore player={1} points={player1Score} isCPU={isCPU} />
+          <PlayerScore player={2} points={player2Score} isCPU={isCPU} />
           <div className={style.game__board}>
             <GameBoardWhite />
             <GameBoardBlack />
-            <GameBoardSlots />
+            <GameBoardSlots isCPU={isCPU} />
           </div>
         </main>
-        <GameFooter isPaused={isPaused} />
+        <GameFooter isPaused={isPaused} isCPU={isCPU} />
       </div>
       <InGameModal
         showModal={showModal}

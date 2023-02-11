@@ -1,10 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import style from './game__board__slots.module.scss';
 import { GridItem, GridState } from '../../model/GridState';
 import GridStateController from '../../controller/GridStateController';
 import { PlayerTurn, PlayerTurnContext } from '../../context/PlayerTurnContext';
 
-const GameBoardSlots = () => {
+type Props = {
+  isCPU?: boolean;
+};
+
+const GameBoardSlots = (props: Props) => {
+  const { isCPU } = props;
   const [gridState, setGridState] = useState<GridState>(
     GridStateController.getInitialState()
   );
@@ -18,18 +23,43 @@ const GameBoardSlots = () => {
     }
   }, [status]);
 
-  const handleOnClick = (column: number, row: number) => {
-    if (status === 'inProgress') {
-      const controller = new GridStateController(gridState);
-      controller.applyChange({ columnNo: column, rowNo: row }, playerTurn);
-      if (controller.isFinished) {
-        setStatus(playerTurn === 1 ? 'wonP1' : 'wonP2');
-      } else {
-        toggleTurn();
+  const handleOnClick = useCallback(
+    (column: number, row: number, cpu = false) => {
+      if (isCPU && playerTurn === 2 && cpu === false) {
+        // clicked by a used while it was CPU's turn
+      } else if (status === 'inProgress') {
+        const controller = new GridStateController(gridState);
+        if (cpu) {
+          // if cpu calculate next move
+          const { columnNo, rowNo } = controller.computeNextCpuMove();
+          // apply next move
+          controller.applyChange({ columnNo, rowNo }, playerTurn);
+        } else {
+          // if human apply next move
+          controller.applyChange({ columnNo: column, rowNo: row }, playerTurn);
+        }
+        // if finished update game status
+        if (controller.isFinished) {
+          setStatus(playerTurn === 1 ? 'wonP1' : 'wonP2');
+        } else if (controller.isDraw()) {
+          setStatus('draw');
+        } else {
+          toggleTurn();
+        }
+
+        setGridState(controller.GridState);
       }
-      setGridState(controller.GridState);
+    },
+    [gridState, playerTurn, setStatus, status, toggleTurn, isCPU]
+  );
+
+  useEffect(() => {
+    if (isCPU && playerTurn === 2) {
+      const handle = setTimeout(() => handleOnClick(0, 0, true), 2000);
+      return () => clearTimeout(handle);
     }
-  };
+    return () => {};
+  }, [handleOnClick, isCPU, playerTurn]);
 
   const playerClass =
     playerTurn === 1

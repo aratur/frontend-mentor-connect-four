@@ -33,6 +33,7 @@
 }
 
 .button_vs_player,
+.button_vs_cpu,
 .button_game_rules,
 .button_white,
 .button_quit {
@@ -48,25 +49,38 @@
   }
 }
 
+.button_vs_cpu,
 .button_vs_player,
 .button_game_rules {
   width: 295px;
 }
 
-:is(.button_vs_player, .button_white, .button_quit, .button_game_rules):is(
-    :hover,
-    :focus
-  ) {
+:is(
+    .button_vs_cpu,
+    .button_vs_player,
+    .button_white,
+    .button_quit,
+    .button_game_rules
+  ):is(:hover, :focus) {
   box-shadow: 0px 10px 1px var(--clr-purple);
   border-color: var(--clr-purple);
 }
 
+.button_vs_cpu,
 .button_vs_player {
   text-align: left;
-  background-color: var(--clr-orange, red);
-  background-image: url('../assets/images/player-vs-player.svg');
   background-repeat: no-repeat;
   background-position: right 6% bottom 50%;
+}
+
+.button_vs_cpu {
+  background-color: var(--clr-pink, red);
+  background-image: url('../assets/images/player-vs-cpu.svg');
+}
+
+.button_vs_player {
+  background-color: var(--clr-orange, red);
+  background-image: url('../assets/images/player-vs-player.svg');
 }
 
 .button_white,
