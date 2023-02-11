@@ -37,7 +37,7 @@ Your users should be able to:
 ### Screenshot
 
 Solution screenshot
-![](solution/screenshots.png)
+![](solution/screenshot.png)
 
 ### Links
 
