@@ -3,7 +3,7 @@
 .game__main {
   display: grid;
   // this padding is to compensate for
-  // black board overflow, since it has position absolute
+  // the black board overflow, because it has position absolute
   // and is larger than other elements in the container
   padding-bottom: 0.7rem;
   @include m.media('mobile', 'tablet') {

@@ -6,14 +6,14 @@ import React, {
 } from 'react';
 
 type Status = 'new' | 'inProgress' | 'wonP1' | 'wonP2' | 'draw' | 'restart';
-export type PlayerTurn = {
+export type GameStateInContext = {
   playerTurn: 1 | 2;
   status: Status;
   toggleTurn: () => void;
   setStatus: (status: Status) => void;
 };
 
-const defaultPlayerTurn: PlayerTurn = {
+const defaultGameState: GameStateInContext = {
   playerTurn: 1,
   status: 'new',
   toggleTurn: () => {
@@ -24,10 +24,10 @@ const defaultPlayerTurn: PlayerTurn = {
   },
 };
 
-export const PlayerTurnContext =
-  React.createContext<PlayerTurn>(defaultPlayerTurn);
+export const GameStateContext =
+  React.createContext<GameStateInContext>(defaultGameState);
 
-export const PlayerContextProvider = (props: PropsWithChildren) => {
+export const GameStateContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
   const [playerTurn, setPlayerTurn] = useState<1 | 2>(2);
   const [status, setStatusState] = useState<Status>('new');
@@ -48,8 +48,8 @@ export const PlayerContextProvider = (props: PropsWithChildren) => {
     [playerTurn, toggleTurn, status, setStatus]
   );
   return (
-    <PlayerTurnContext.Provider value={value}>
+    <GameStateContext.Provider value={value}>
       {children}
-    </PlayerTurnContext.Provider>
+    </GameStateContext.Provider>
   );
 };

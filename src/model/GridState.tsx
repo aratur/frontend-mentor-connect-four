@@ -1,3 +1,5 @@
+// model used by the controller and GameBoardSlots component
+
 export type GridItem =
   | 'isEmpty'
   | 'player1'

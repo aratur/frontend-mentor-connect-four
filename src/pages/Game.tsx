@@ -9,11 +9,11 @@ import GameFooter from '../components/GameFooter/GameFooter';
 import GameBoardWhite from '../components/GameBoardWhite/GameBoardWhite';
 import GameBoardBlack from '../components/GameBoardBlack/GameBoardBlack';
 import GameBoardSlots from '../components/GameBoardSlots/GameBoardSlots';
-import { PlayerTurnContext } from '../context/PlayerTurnContext';
+import { GameStateContext } from '../context/GameStateContext';
 
 const Game = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { status, setStatus, toggleTurn } = useContext(PlayerTurnContext);
+  const { status, setStatus, toggleTurn } = useContext(GameStateContext);
   const [isPaused, setIsPaused] = useState(false);
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
@@ -59,30 +59,30 @@ const Game = () => {
 
   // -----------
   // Header handlers
-  const handleMenuClicked = () => {
+  const handleMenuClicked = useCallback(() => {
     setIsPaused(true);
     setShowModal(!showModal);
-  };
+  }, [showModal]);
 
-  const handleRestartClicked = () => {
+  const handleRestartClicked = useCallback(() => {
     setStatus('restart');
-  };
+  }, [setStatus]);
 
   // -----------
   // Modal handlers
-  const handleModalContinue = () => {
+  const handleModalContinue = useCallback(() => {
     if (status === 'inProgress') setIsPaused(false);
     setShowModal(!showModal);
-  };
+  }, [showModal, status]);
 
-  const handleModalRestart = () => {
+  const handleModalRestart = useCallback(() => {
     setStatus('restart');
     setShowModal(!showModal);
-  };
+  }, [setStatus, showModal]);
 
-  const handleModalQuit = () => {
+  const handleModalQuit = useCallback(() => {
     setShowModal(!showModal);
-  };
+  }, [showModal]);
 
   return (
     <div className="page">

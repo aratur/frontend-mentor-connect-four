@@ -3,6 +3,9 @@ import { Position, LineOfPositions, LinesToCheck } from '../model/GridState';
 const cols = 7;
 const rows = 6;
 
+// this file generates a list of lines on which a win can be achieved
+// module exports the actual array, so it is not calculated multiple times when used
+
 const getCoordinatesOfRowsToCheck = (): LinesToCheck => {
   const rowsToCheck: LinesToCheck = Array(rows).fill({
     name: null,
@@ -71,7 +74,6 @@ const calcLineOnLeftDiagonal = (p: Position): LineOfPositions => {
     xDiagonal += 1;
     for (let { rowNo } = p; rowNo < rows; rowNo += 1) {
       yDiagonal += 1;
-      // console.log(xDiagonal, yDiagonal, columnNo, rowNo);
       if (xDiagonal === yDiagonal) {
         result.positions.push({ columnNo, rowNo });
       }

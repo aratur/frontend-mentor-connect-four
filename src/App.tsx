@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Game from './pages/Game';
 import Menu from './pages/Menu';
 import Rules from './pages/Rules';
-import { PlayerContextProvider } from './context/PlayerTurnContext';
+import { GameStateContextProvider } from './context/GameStateContext';
 
 const GameWithContext = () => (
-  <PlayerContextProvider>
+  <GameStateContextProvider>
     <Game />
-  </PlayerContextProvider>
+  </GameStateContextProvider>
 );
 
 const App = () => (

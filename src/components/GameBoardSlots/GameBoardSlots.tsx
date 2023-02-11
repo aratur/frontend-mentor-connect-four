@@ -2,7 +2,10 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import style from './game__board__slots.module.scss';
 import { GridState } from '../../model/GridState';
 import GridStateController from '../../controller/GridStateController';
-import { PlayerTurn, PlayerTurnContext } from '../../context/PlayerTurnContext';
+import {
+  GameStateInContext,
+  GameStateContext,
+} from '../../context/GameStateContext';
 
 type Props = {
   isCPU?: boolean;
@@ -15,7 +18,7 @@ const GameBoardSlots = (props: Props) => {
   );
 
   const { playerTurn, toggleTurn, status, setStatus } =
-    useContext<PlayerTurn>(PlayerTurnContext);
+    useContext<GameStateInContext>(GameStateContext);
 
   useEffect(() => {
     if (status === 'restart' || status === 'new') {
@@ -26,6 +29,7 @@ const GameBoardSlots = (props: Props) => {
   const handleOnClick = useCallback(
     (column: number, row: number, cpu = false) => {
       if (isCPU && playerTurn === 2 && cpu === false) {
+        // do nothing when
         // clicked by a used while it was CPU's turn
       } else if (status === 'inProgress') {
         const controller = new GridStateController(gridState);

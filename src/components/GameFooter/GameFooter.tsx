@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import style from './game__footer.module.scss';
 import Button from '../Button';
-import { PlayerTurnContext } from '../../context/PlayerTurnContext';
+import { GameStateContext } from '../../context/GameStateContext';
 import PlayerTurnBackground from './PlayerTurnBackground';
 
 import Countdown from '../Countdown/Countdown';
@@ -13,7 +13,7 @@ type Props = {
 
 const GameFooter = (props: Props) => {
   const { isPaused, isCPU = false } = props;
-  const { playerTurn, status, setStatus } = useContext(PlayerTurnContext);
+  const { playerTurn, status, setStatus } = useContext(GameStateContext);
 
   const winnerNumber = status.substring(status.length - 1);
   let label = `Player ${playerTurn}'s turn`;
@@ -22,6 +22,11 @@ const GameFooter = (props: Props) => {
   winnerLabel =
     (isCPU && (winnerNumber === '1' ? 'Player 1' : 'CPU')) || winnerLabel;
   winnerLabel = (status === 'draw' && 'Nobody') || winnerLabel;
+
+  const handlePlayAgainClicked = useCallback(
+    () => setStatus('new'),
+    [setStatus]
+  );
 
   return (
     <footer className={style.game__footer}>
@@ -40,7 +45,7 @@ const GameFooter = (props: Props) => {
       <div className={style.game__winner} data-status={status}>
         <h2 className="h2 heading_xs">{winnerLabel}</h2>
         <h3 className="h3 heading_large">Wins</h3>
-        <Button buttonClass="basic" onClick={() => setStatus('new')}>
+        <Button buttonClass="basic" onClick={handlePlayAgainClicked}>
           <span className="h4 heading_xs">Play again</span>
         </Button>
       </div>

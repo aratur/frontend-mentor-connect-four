@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PlayerTurnContext } from '../../context/PlayerTurnContext';
+import { GameStateContext } from '../../context/GameStateContext';
 
 type Props = {
   isPaused: boolean;
@@ -8,11 +8,11 @@ type Props = {
 
 const Countdown = (props: Props) => {
   const { isPaused, initCountDown = 30 } = props;
-  // const initCountDown = 30; // seconds;
+
   const [countdown, setCountdown] = useState(initCountDown);
   const [copyPlayerTurn, setCopyPlayerTurn] = useState(0);
 
-  const { playerTurn, status, setStatus } = useContext(PlayerTurnContext);
+  const { playerTurn, status, setStatus } = useContext(GameStateContext);
 
   useEffect(() => {
     if (copyPlayerTurn !== playerTurn) {
