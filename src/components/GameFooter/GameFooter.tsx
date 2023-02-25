@@ -17,7 +17,8 @@ const GameFooter = (props: Props) => {
 
   const winnerNumber = status.substring(status.length - 1);
   let label = `Player ${playerTurn}'s turn`;
-  label = isCPU && playerTurn === 1 ? 'Your turn' : "cpu's turn";
+  if (isCPU) label = playerTurn === 1 ? 'Your turn' : "cpu's turn";
+
   let winnerLabel = winnerNumber === '1' ? 'Player 1' : 'Player 2';
   winnerLabel =
     (isCPU && (winnerNumber === '1' ? 'Player 1' : 'CPU')) || winnerLabel;
