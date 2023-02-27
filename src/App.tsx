@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Game from './pages/Game';
 import Menu from './pages/Menu';
-import Rules from './pages/Rules';
-import { GameStateContextProvider } from './context/GameStateContext';
 
-const GameWithContext = () => (
-  <GameStateContextProvider>
-    <Game />
-  </GameStateContextProvider>
-);
+const GameLazy = lazy(() => import('./pages/GameWithContext'));
+const RulesLazy = lazy(() => import('./pages/Rules'));
 
 const App = () => (
   <BrowserRouter>
-    <Routes>
-      {/* for online comparison */}
-      <Route path="/" element={<Menu />} />
-      <Route path="/game" element={<GameWithContext />} />
-      <Route path="/game/cpu" element={<GameWithContext />} />
-      <Route path="/rules" element={<Rules />} />
-      <Route path="*" element={<p>Incorrect URL</p>} />
-    </Routes>
+    <Suspense fallback={<div className="loader" />}>
+      <Routes>
+        {/* for online comparison */}
+        <Route path="/" element={<Menu />} />
+        <Route path="/game" element={<GameLazy />} />
+        <Route path="/game/cpu" element={<GameLazy />} />
+        <Route path="/rules" element={<RulesLazy />} />
+        <Route path="*" element={<p>Incorrect URL</p>} />
+      </Routes>
+    </Suspense>
   </BrowserRouter>
 );
 
