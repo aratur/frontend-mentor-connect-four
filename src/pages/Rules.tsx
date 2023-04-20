@@ -5,16 +5,16 @@ import style from './rules.module.scss';
 const Rules = () => (
   <div className={[style.rules, 'page'].join(' ')}>
     <main className={style.rules__main}>
-      <h1 className="h1 heading_large">Rules</h1>
+      <h1 className="h1 heading-large">Rules</h1>
       <section className={style.rules__section}>
-        <h2 className="h2 heading_small fnt_purple">Objective</h2>
+        <h2 className="h2 heading-small fnt-purple">Objective</h2>
         <p>
           Be the first player to connect 4 of the same colored discs in a row
           (either vertically, horizontally, or diagonally).
         </p>
       </section>
       <section className={style.rules__section}>
-        <h2 className="h2 heading_small fnt_purple">How to play</h2>
+        <h2 className="h2 heading-small fnt-purple">How to play</h2>
         <ol>
           <li>Red goes first in the first game.</li>
           <li>
@@ -27,7 +27,7 @@ const Rules = () => (
           </li>
         </ol>
       </section>
-      <Button buttonClass="ok" linkTo="/" />{' '}
+      <Button variant="ok" linkTo="/" />{' '}
     </main>
   </div>
 );

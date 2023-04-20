@@ -1,13 +1,16 @@
 @use '../../sass/utils/mixins' as m;
 
-.game__footer {
+.footer {
   position: relative;
   top: -53px;
   @include m.media('mobile') {
     top: -25px;
   }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  .game__footer__background {
+  .footer__background {
     position: absolute;
     background-color: var(--clr-purple);
     border-top-right-radius: 60px;
@@ -27,11 +30,7 @@
     }
   }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .game__turn {
+  .footer__turn {
     position: absolute;
     z-index: 400;
     width: max-content;
@@ -41,13 +40,13 @@
       transition: transform 500ms ease-in 1600ms;
       transform: scale(0);
     }
-    .game__turn__background {
+    .footer__turn-svg {
       transition: fill 200ms linear 200ms;
     }
-    &[data-turn='1'] .game__turn__background {
+    &[data-turn='1'] .footer__turn-svg {
       fill: var(--clr-pink);
     }
-    &[data-turn='2'] .game__turn__background {
+    &[data-turn='2'] .footer__turn-svg {
       fill: var(--clr-orange);
     }
 
@@ -62,7 +61,7 @@
       }
     }
 
-    .game__turn__label {
+    .footer__label {
       position: absolute;
       text-align: center;
       top: 42px;
@@ -73,30 +72,6 @@
       &[data-turn='1'] {
         color: white;
       }
-    }
-  }
-
-  .game__winner {
-    position: absolute;
-    z-index: 500;
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    background-color: white;
-    border: 3px solid black;
-    border-radius: 24px;
-    box-shadow: 0px 10px black;
-    width: 291px;
-    padding-block: 20px;
-    align-items: center;
-    & > * {
-      display: inline;
-    }
-    transform: scale(0);
-    &[data-status^='won'],
-    &[data-status='draw'] {
-      transition: transform 500ms ease-in 1200ms;
-      transform: scale(1);
     }
   }
 }

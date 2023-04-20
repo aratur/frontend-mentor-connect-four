@@ -1,15 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-
 import style from './game.module.scss';
-import InGameModal from '../components/InGameModal/InGameModal';
-import PlayerScore from '../components/PlayerScore/PlayerScore';
-import GameHeader from '../components/GameHeader/GameHeader';
-import GameFooter from '../components/GameFooter/GameFooter';
-import GameBoardWhite from '../components/GameBoardWhite/GameBoardWhite';
-import GameBoardBlack from '../components/GameBoardBlack/GameBoardBlack';
-import GameBoardSlots from '../components/GameBoardSlots/GameBoardSlots';
+import { Footer, Header, Score, Modal } from '../features';
+
 import { GameStateContext } from '../context/GameStateContext';
+import GameBoard from '../features/GameBoard/GameBoard';
 
 const Game = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -87,23 +82,19 @@ const Game = () => {
   return (
     <div className="page">
       <div className={style.game}>
-        <GameHeader
+        <Header
           onMenuClick={handleMenuClicked}
           onRestartClicked={handleRestartClicked}
         />
         <main className={style.game__main}>
-          <h1 className="sr_only">Game 4 in a row</h1>
-          <PlayerScore player={1} points={player1Score} isCPU={isCPU} />
-          <PlayerScore player={2} points={player2Score} isCPU={isCPU} />
-          <div className={style.game__board}>
-            <GameBoardWhite />
-            <GameBoardBlack />
-            <GameBoardSlots isCPU={isCPU} />
-          </div>
+          <h1 className="sr-only">Game 4 in a row</h1>
+          <Score player={1} points={player1Score} isCPU={isCPU} />
+          <Score player={2} points={player2Score} isCPU={isCPU} />
+          <GameBoard />
         </main>
-        <GameFooter isPaused={isPaused} isCPU={isCPU} />
+        <Footer isPaused={isPaused} />
       </div>
-      <InGameModal
+      <Modal
         showModal={showModal}
         onContinue={handleModalContinue}
         onRestart={handleModalRestart}

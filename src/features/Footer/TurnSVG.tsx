@@ -4,7 +4,7 @@ type Props = {
   className: string;
 };
 
-const PlayerTurnBackground = (props: Props) => {
+const TurnSVG = (props: Props) => {
   const { className } = props;
   return (
     <svg
@@ -63,4 +63,4 @@ const PlayerTurnBackground = (props: Props) => {
   );
 };
 
-export default PlayerTurnBackground;
+export default TurnSVG;

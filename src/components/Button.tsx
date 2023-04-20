@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import buttons from './button.module.scss';
 
 type Props = {
-  buttonClass:
+  variant:
     | 'vs_cpu'
     | 'vs_player'
     | 'game_rules'
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const Button = (props: PropsWithChildren<Props>): React.ReactElement => {
-  const { buttonClass: buttonType, children, onClick, linkTo } = props;
+  const { variant: buttonType, children, onClick, linkTo } = props;
 
   const classNames = useMemo(
     () => [

@@ -9,7 +9,6 @@ const App = () => (
   <BrowserRouter>
     <Suspense fallback={<div className="loader" />}>
       <Routes>
-        {/* for online comparison */}
         <Route path="/" element={<Menu />} />
         <Route path="/game" element={<GameLazy />} />
         <Route path="/game/cpu" element={<GameLazy />} />

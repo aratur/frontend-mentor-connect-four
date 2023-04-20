@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/images/logo.svg';
-import style from './game__header.module.scss';
-import Button from '../Button';
+import style from './header.module.scss';
+import { Button } from '../../components';
 
 type Props = {
   onMenuClick: () => void;
@@ -11,16 +11,16 @@ type Props = {
 const GameHeader = (props: Props) => {
   const { onMenuClick, onRestartClicked } = props;
   return (
-    <header className={style.game__header}>
-      <Button buttonClass="basic" onClick={onMenuClick}>
+    <header className={style.header}>
+      <Button variant="basic" onClick={onMenuClick}>
         <span className="h4">Menu</span>
       </Button>
       <img
-        className={style.game__header__logo_center}
+        className={style.header__logo}
         src={logo}
         alt="logo with four dots"
       />
-      <Button buttonClass="basic" onClick={onRestartClicked}>
+      <Button variant="basic" onClick={onRestartClicked}>
         <span className="h4">Restart</span>
       </Button>
     </header>

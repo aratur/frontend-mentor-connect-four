@@ -1,11 +1,11 @@
 @use '../../sass/utils/mixins' as m;
 
-.game__player_1 {
+.score__player-1 {
   grid-area: player-1;
   margin-left: 30px;
 }
 
-.game__player_2 {
+.score__player-2 {
   grid-area: player-2;
   margin-right: 30px;
 }
@@ -42,7 +42,7 @@
   }
 }
 
-.game__player__name_fnt {
+.score__label {
   // heading XS
   font-size: 16px;
   line-height: 21px;
@@ -53,7 +53,7 @@
   }
 }
 
-.game__player__points_fnt {
+.score__points {
   font-size: 32px;
   line-height: 41px;
   @include m.media('tablet', 'desktop') {
@@ -63,8 +63,8 @@
   }
 }
 
-.game__player_1__icon,
-.game__player_2__icon {
+.score__icon-player-1,
+.score__icon-player-2 {
   width: 54px;
   height: 59px;
   position: absolute;
@@ -79,13 +79,13 @@
   }
 }
 
-.game__player_1__icon {
+.score__icon-player-1 {
   @include m.media('tablet', 'mobile') {
     left: -28px;
   }
 }
 
-.game__player_2__icon {
+.score__icon-player-2 {
   @include m.media('tablet', 'mobile') {
     right: -28px;
   }

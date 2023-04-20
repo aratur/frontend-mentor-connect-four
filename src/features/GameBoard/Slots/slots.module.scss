@@ -1,0 +1,25 @@
+@use '../../../sass/utils/mixins' as m;
+
+.slots {
+  position: absolute;
+  top: 0px;
+  overflow-y: hidden;
+  display: grid;
+  padding-block: 11px;
+  padding-inline: 3px;
+  grid-template-columns: repeat(7, 47px);
+  // width: 100%;
+  justify-content: space-between;
+  @include m.media('tablet', 'desktop') {
+    padding-block: 20px;
+    padding-inline: 8px;
+    grid-template-columns: repeat(7, 88px);
+  }
+  @include m.media('desktop') {
+    // this makes space for marker on top
+    // and at the same time allow for overflow-y hidden
+    // to hide player tokens sliding in
+    top: -40px;
+    padding-top: 60px;
+  }
+}

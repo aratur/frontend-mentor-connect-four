@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './player_score.module.scss';
+import style from './score.module.scss';
 import playerOne from '../../assets/images/player-one.svg';
 import playerTwo from '../../assets/images/player-two.svg';
 import playerCPU from '../../assets/images/cpu.svg';
@@ -10,7 +10,7 @@ type Props = {
   isCPU?: boolean;
 };
 
-const PlayerScore = (props: Props) => {
+const Score = (props: Props) => {
   const { points = 0, player, isCPU = false } = props;
   let iconSrc = playerOne;
   let label = 'Player One';
@@ -24,24 +24,22 @@ const PlayerScore = (props: Props) => {
     <div
       className={[
         style.game__player,
-        player === 1 ? style.game__player_1 : style.game__player_2,
+        player === 1 ? style['score__player-1'] : style['score__player-2'],
       ].join(' ')}
     >
-      <div className={['h3', style.game__player__name_fnt].join(' ')}>
-        {label}
-      </div>
-      <div className={['h4', style.game__player__points_fnt].join(' ')}>
-        {points}
-      </div>
+      <div className={['h3', style.score__label].join(' ')}>{label}</div>
+      <div className={['h4', style.score__points].join(' ')}>{points}</div>
       <img
         src={iconSrc}
         alt="smiling face"
         className={
-          player === 1 ? style.game__player_1__icon : style.game__player_2__icon
+          player === 1
+            ? style['score__icon-player-1']
+            : style['score__icon-player-2']
         }
       />
     </div>
   );
 };
 
-export default PlayerScore;
+export default Score;

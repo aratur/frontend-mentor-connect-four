@@ -1,0 +1,67 @@
+@use '../../../sass/utils/mixins' as m;
+
+.item-slot {
+  background-color: transparent;
+  border-radius: 2rem;
+
+  z-index: 300;
+  width: 34px;
+  @include m.media('tablet', 'desktop') {
+    width: 64px;
+  }
+
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  &[data-item='player1'],
+  &[data-item='winnerP1'] {
+    cursor: default;
+    background-image: url('../../assets/images/counter-red-small.svg');
+
+    @include m.media('tablet', 'desktop') {
+      background-image: url('../../assets/images/counter-red-large.svg');
+    }
+  }
+  &[data-item='player2'],
+  &[data-item='winnerP2'] {
+    background-image: url('../../assets/images/counter-yellow-small.svg');
+    @include m.media('tablet', 'desktop') {
+      background-image: url('../../assets/images/counter-yellow-large.svg');
+    }
+  }
+
+  // slide in animation
+  --fall-height: -280px;
+  @include m.media('desktop', 'tablet') {
+    --fall-height: -520px;
+  }
+  &[data-item^='player'],
+  &[data-item^='winner'] {
+    background-position: left -3px top -3px;
+    position: relative;
+    z-index: 200;
+    transform: translateY(var(--fall-height));
+    animation: slide_in 800ms cubic-bezier(0.33, 0, 0.66, 0.33) 100ms 1 normal
+      forwards;
+    cursor: default;
+  }
+
+  @keyframes slide_in {
+    from {
+      transform: translateY(var(--fall-height));
+    }
+    to {
+      transform: translateY(0px);
+    }
+  }
+
+  &[data-item^='winner'] {
+    outline: 4px solid white;
+    outline-offset: -12px;
+    @include m.media('tablet', 'desktop') {
+      outline: 8px solid white;
+      outline-offset: -20px;
+    }
+  }
+}
