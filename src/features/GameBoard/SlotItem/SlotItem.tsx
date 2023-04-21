@@ -14,7 +14,6 @@ const SlotItem = (props: Props) => {
   const { rowNo, columnNo } = props;
   const { move, getValueAt } = useContext<GameStateInContext>(GameStateContext);
   const gridItem1 = getValueAt({ columnNo, rowNo });
-  // console.log(columnNo, rowNo, gridItem1);
 
   const gridItem = gridItem1 || 'isEmpty';
 

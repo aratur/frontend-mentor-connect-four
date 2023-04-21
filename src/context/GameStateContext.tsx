@@ -64,7 +64,7 @@ export const GameStateContextProvider = (props: PropsWithChildren) => {
         // clicked by a used while it was CPU's turn
       } else if (status === 'inProgress') {
         const controller = new GridStateController(gridState);
-        if (isCPU) {
+        if (isCPU && playerTurn === 2) {
           // if cpu calculate next move
           const { columnNo, rowNo } = controller.computeNextCpuMove();
           // apply next move
