@@ -17,17 +17,17 @@
   &[data-item='player1'],
   &[data-item='winnerP1'] {
     cursor: default;
-    background-image: url('../../assets/images/counter-red-small.svg');
+    background-image: url('../../../assets/images/counter-red-small.svg');
 
     @include m.media('tablet', 'desktop') {
-      background-image: url('../../assets/images/counter-red-large.svg');
+      background-image: url('../../../assets/images/counter-red-large.svg');
     }
   }
   &[data-item='player2'],
   &[data-item='winnerP2'] {
-    background-image: url('../../assets/images/counter-yellow-small.svg');
+    background-image: url('../../../assets/images/counter-yellow-small.svg');
     @include m.media('tablet', 'desktop') {
-      background-image: url('../../assets/images/counter-yellow-large.svg');
+      background-image: url('../../../assets/images/counter-yellow-large.svg');
     }
   }
 

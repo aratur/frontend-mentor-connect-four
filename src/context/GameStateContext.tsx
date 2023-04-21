@@ -1,11 +1,12 @@
 import React, {
   PropsWithChildren,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
 import GridStateController from '../controller/GridStateController';
-import { GridState } from '../model/GridState';
+import { GridItem, GridState, Position } from '../model/GridState';
 
 type Status = 'new' | 'inProgress' | 'wonP1' | 'wonP2' | 'draw' | 'restart';
 export type GameStateInContext = {
@@ -16,6 +17,7 @@ export type GameStateInContext = {
   setStatus: (status: Status) => void;
   setIsCPU: (isCPU: boolean) => void;
   move: (column: number, row: number) => void;
+  getValueAt: (p: Position) => GridItem | undefined;
 };
 
 const defaultGameState: GameStateInContext = {
@@ -32,6 +34,9 @@ const defaultGameState: GameStateInContext = {
     throw new Error('missing implementation');
   },
   move: () => {
+    throw new Error('missing implementation');
+  },
+  getValueAt: () => {
     throw new Error('missing implementation');
   },
 };
@@ -54,7 +59,7 @@ export const GameStateContextProvider = (props: PropsWithChildren) => {
 
   const move = useCallback(
     (column: number, row: number) => {
-      if (isCPU && playerTurn === 2 && !isCPU) {
+      if (isCPU && playerTurn === 2 && column !== 0) {
         // do nothing when
         // clicked by a used while it was CPU's turn
       } else if (status === 'inProgress') {
@@ -83,6 +88,25 @@ export const GameStateContextProvider = (props: PropsWithChildren) => {
     [isCPU, playerTurn, status, gridState, toggleTurn]
   );
 
+  useEffect(() => {
+    if (status === 'restart' || status === 'new') {
+      setGridState(GridStateController.getInitialState());
+    }
+  }, [status]);
+
+  useEffect(() => {
+    if (isCPU && playerTurn === 2) {
+      const handle = setTimeout(() => move(0, 0), 2000);
+      return () => clearTimeout(handle);
+    }
+    return () => {};
+  }, [move, isCPU, playerTurn]);
+
+  const getValueAt = useCallback(
+    (p: Position) => gridState.at(p.columnNo)?.at(p.rowNo),
+    [gridState]
+  );
+
   const value = useMemo(
     () => ({
       playerTurn,
@@ -92,8 +116,18 @@ export const GameStateContextProvider = (props: PropsWithChildren) => {
       setStatus,
       setIsCPU,
       move,
+      getValueAt,
     }),
-    [playerTurn, toggleTurn, status, isCPU, setStatus, setIsCPU, move]
+    [
+      playerTurn,
+      toggleTurn,
+      status,
+      isCPU,
+      setStatus,
+      setIsCPU,
+      move,
+      getValueAt,
+    ]
   );
   return (
     <GameStateContext.Provider value={value}>

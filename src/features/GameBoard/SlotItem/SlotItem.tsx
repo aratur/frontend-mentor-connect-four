@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { GridItem } from '../../../model/GridState';
 import {
   GameStateContext,
   GameStateInContext,
@@ -7,24 +6,28 @@ import {
 import style from './slot-item.module.scss';
 
 type Props = {
-  gridItem: GridItem;
-  columnIndex: number;
-  rowIndex: number;
+  columnNo: number;
+  rowNo: number;
 };
 
 const SlotItem = (props: Props) => {
-  const { gridItem, rowIndex, columnIndex } = props;
-  const { move } = useContext<GameStateInContext>(GameStateContext);
+  const { rowNo, columnNo } = props;
+  const { move, getValueAt } = useContext<GameStateInContext>(GameStateContext);
+  const gridItem1 = getValueAt({ columnNo, rowNo });
+  // console.log(columnNo, rowNo, gridItem1);
+
+  const gridItem = gridItem1 || 'isEmpty';
+
   return (
     <button
       type="button"
-      onClick={() => move(columnIndex, rowIndex)}
+      onClick={() => move(columnNo, rowNo)}
       disabled={gridItem !== 'isEmpty'}
       data-item={gridItem}
       className={style['item-slot']}
     >
       <span className="sr-only">
-        {columnIndex}-{rowIndex}
+        {columnNo}-{rowNo}
       </span>
     </button>
   );

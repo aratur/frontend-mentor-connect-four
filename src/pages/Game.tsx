@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useLocation } from 'react-router';
 import style from './game.module.scss';
 import { Footer, Header, Score, Modal } from '../features';
@@ -8,13 +14,20 @@ import GameBoard from '../features/GameBoard/GameBoard';
 
 const Game = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { status, setStatus, toggleTurn } = useContext(GameStateContext);
+  const { isCPU, setIsCPU, status, setStatus, toggleTurn } =
+    useContext(GameStateContext);
   const [isPaused, setIsPaused] = useState(false);
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
 
   const location = useLocation();
-  const isCPU = location.pathname === '/game/cpu';
+  const locationCPU = useMemo(
+    () => location.pathname === '/game/cpu',
+    [location.pathname]
+  );
+  useEffect(() => {
+    if (locationCPU !== isCPU) setIsCPU(locationCPU);
+  }, [isCPU, locationCPU, setIsCPU]);
 
   const resetToInitialState = useCallback(() => {
     setIsPaused(false);

@@ -26,8 +26,9 @@ const GameFooter = (props: Props) => {
   useEffect(() => {
     if (countdown === 0 && !['wonP2', 'wonP1'].includes(status)) {
       setStatus(playerTurn === 1 ? 'wonP2' : 'wonP1');
+      resetCountDown();
     }
-  }, [countdown, playerTurn, setStatus, status]);
+  }, [countdown, playerTurn, resetCountDown, setStatus, status]);
 
   let label = `Player ${playerTurn}'s turn`;
   if (isCPU) label = playerTurn === 1 ? 'Your turn' : "cpu's turn";

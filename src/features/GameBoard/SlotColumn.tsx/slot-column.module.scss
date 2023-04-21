@@ -32,7 +32,6 @@
   top: -60px;
 }
 
-// .grid__item_slot:is(:hover) ~ .grid_marker,
 .slot-column:is(:hover) > .slot-column__marker {
   @include m.media('desktop') {
     transform: translateX(-50%) scale(1);
@@ -40,9 +39,9 @@
 }
 
 .slot-column__player-1 {
-  background-image: url('../../assets/images/marker-red.svg');
+  background-image: url('../../../assets/images/marker-red.svg');
 }
 
 .slot-column__player-2 {
-  background-image: url('../../assets/images/marker-yellow.svg');
+  background-image: url('../../../assets/images/marker-yellow.svg');
 }

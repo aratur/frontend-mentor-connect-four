@@ -1,19 +1,18 @@
-import React, { useContext } from 'react';
-import { GridItem } from '../../../model/GridState';
+import React, { useContext, useMemo } from 'react';
 import {
   GameStateContext,
   GameStateInContext,
 } from '../../../context/GameStateContext';
 import style from './slot-column.module.scss';
 import SlotItem from '../SlotItem/SlotItem';
+import { ROWS } from '../../../controller/GridStateController';
 
 type Props = {
-  data: GridItem[];
   columnIndex: number;
 };
 
 const SlotColumn = (props: Props) => {
-  const { data, columnIndex } = props;
+  const { columnIndex } = props;
   const { playerTurn } = useContext<GameStateInContext>(GameStateContext);
 
   const playerClass =
@@ -22,16 +21,21 @@ const SlotColumn = (props: Props) => {
       : style['slot-column__player-2'];
   const markerClasses = [style['slot-column__marker'], playerClass].join(' ');
 
-  return (
-    <div key={`${columnIndex + 1}`} className={style['slot-column']}>
-      {data.map((gridItem, rowIndex) => (
+  const rows = useMemo(
+    () =>
+      [...Array(ROWS)].map((_, rowIndex) => (
         <SlotItem
-          gridItem={gridItem}
-          columnIndex={columnIndex}
-          rowIndex={rowIndex}
+          columnNo={columnIndex}
+          rowNo={rowIndex}
           key={`${columnIndex + 1}_${rowIndex + 1}`}
         />
-      ))}
+      )),
+    [columnIndex]
+  );
+
+  return (
+    <div key={`${columnIndex + 1}`} className={style['slot-column']}>
+      {rows}
       <div className={markerClasses} />
     </div>
   );

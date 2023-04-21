@@ -7,8 +7,8 @@ import {
 } from '../model/GridState';
 import allLinesToCheck from './AllLinesToCheckSingleton';
 
-const cols = 7;
-const rows = 6;
+export const COLS = 7;
+export const ROWS = 6;
 
 class GridStateController {
   private gridState: GridState;
@@ -30,7 +30,7 @@ class GridStateController {
     return this.gridState.at(columnNo);
   }
 
-  private getValueAt(p: Position): GridItem | undefined {
+  public getValueAt(p: Position): GridItem | undefined {
     return this.gridState.at(p.columnNo)?.at(p.rowNo);
   }
 
@@ -151,7 +151,7 @@ class GridStateController {
   }
 
   static getInitialState(): Array<Array<GridItem>> {
-    return new Array(cols).fill(new Array(rows).fill('isEmpty'));
+    return new Array(COLS).fill(new Array(ROWS).fill('isEmpty'));
   }
 
   private checkIfCpuCanWinNow(): Position | undefined {
@@ -159,7 +159,7 @@ class GridStateController {
     const playerTurn = 2;
     // see what could happen on each move
     const rowNo = 0;
-    for (let columnNo = 0; columnNo < cols; columnNo += 1) {
+    for (let columnNo = 0; columnNo < COLS; columnNo += 1) {
       const newGridStateController = new GridStateController(this.gridState);
       newGridStateController.applyChange({ columnNo, rowNo }, playerTurn);
       if (newGridStateController.isFinished) {
@@ -175,7 +175,7 @@ class GridStateController {
     const playerTurn = 1;
     // see what could happen on each move
     const rowNo = 0;
-    for (let columnNo = 0; columnNo < cols; columnNo += 1) {
+    for (let columnNo = 0; columnNo < COLS; columnNo += 1) {
       const newGridStateController = new GridStateController(this.gridState);
       newGridStateController.applyChange({ columnNo, rowNo }, playerTurn);
       if (newGridStateController.isFinished) {
@@ -195,7 +195,7 @@ class GridStateController {
   private makeARandomMove(): Position {
     let validPosition = { rowNo: -1, columnNo: -1 };
     while (validPosition.rowNo === -1) {
-      validPosition = { rowNo: -1, columnNo: this.getRandomInt(0, cols) };
+      validPosition = { rowNo: -1, columnNo: this.getRandomInt(0, COLS) };
       validPosition = this.translateToValidTargetPosition(validPosition);
     }
     return validPosition;
@@ -221,7 +221,7 @@ class GridStateController {
           )
       );
       if (nextBestMove !== -1)
-        return { columnNo: nextBestMove, rowNo: rows - 1 };
+        return { columnNo: nextBestMove, rowNo: ROWS - 1 };
     }
     return undefined;
   }
