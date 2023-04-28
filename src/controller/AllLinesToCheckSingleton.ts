@@ -1,4 +1,5 @@
-import { Position, LineOfPositions, LinesToCheck } from '../model/GridState';
+import { LineOfPositions, LinesToCheck } from '../model/GridState';
+import { Position } from '../model/Position';
 
 const cols = 7;
 const rows = 6;

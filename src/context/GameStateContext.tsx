@@ -6,7 +6,11 @@ import React, {
   useState,
 } from 'react';
 import GridStateController from '../controller/GridStateController';
-import { GridItem, GridState, Position } from '../model/GridState';
+import { GridState } from '../model/GridState';
+import { GridItem } from '../model/GridItem';
+import { Position } from '../model/Position';
+import ControllerFactory from '../controller/ControllerFactory';
+import GameControllerI from '../controller/GameControllerI';
 
 type Status = 'new' | 'inProgress' | 'wonP1' | 'wonP2' | 'draw' | 'restart';
 export type GameStateInContext = {
@@ -57,35 +61,39 @@ export const GameStateContextProvider = (props: PropsWithChildren) => {
     setPlayerTurn(playerTurn === 1 ? 2 : 1);
   }, [playerTurn]);
 
+  const updateGameStatus = useCallback(
+    (controller: GameControllerI) => {
+      // if finished update game status
+      switch (controller.getStatus()) {
+        case 'isFinished':
+          setStatus(playerTurn === 1 ? 'wonP1' : 'wonP2');
+          break;
+        case 'isDraw':
+          setStatus('draw');
+          break;
+        default:
+          toggleTurn();
+          break;
+      }
+      setGridState(controller.getGridState());
+    },
+    [playerTurn, toggleTurn]
+  );
+
   const move = useCallback(
     (column: number, row: number) => {
-      if (isCPU && playerTurn === 2 && column !== 0) {
-        // do nothing when
-        // clicked by a used while it was CPU's turn
+      if (playerTurn === 2 && column !== 0) {
+        //   // do nothing when
+        //   // clicked by a used while it was CPU's turn
       } else if (status === 'inProgress') {
-        const controller = new GridStateController(gridState);
-        if (isCPU && playerTurn === 2) {
-          // if cpu calculate next move
-          const { columnNo, rowNo } = controller.computeNextCpuMove();
-          // apply next move
-          controller.applyChange({ columnNo, rowNo }, playerTurn);
-        } else {
-          // if human apply next move
-          controller.applyChange({ columnNo: column, rowNo: row }, playerTurn);
-        }
-        // if finished update game status
-        if (controller.isFinished) {
-          setStatus(playerTurn === 1 ? 'wonP1' : 'wonP2');
-        } else if (controller.isDraw()) {
-          setStatus('draw');
-        } else {
-          toggleTurn();
-        }
-
-        setGridState(controller.GridState);
+        const controller = new ControllerFactory(isCPU).getController(
+          gridState
+        );
+        controller.move({ columnNo: column, rowNo: row }, playerTurn);
+        updateGameStatus(controller);
       }
     },
-    [isCPU, playerTurn, status, gridState, toggleTurn]
+    [isCPU, playerTurn, status, gridState, updateGameStatus]
   );
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import {
-  GridItem,
   GridState,
   LineOfPositions,
-  Position,
   PositionsInARow,
 } from '../model/GridState';
+import { GridItem } from '../model/GridItem';
+import { Position } from '../model/Position';
 import allLinesToCheck from './AllLinesToCheckSingleton';
 
 export const COLS = 7;
