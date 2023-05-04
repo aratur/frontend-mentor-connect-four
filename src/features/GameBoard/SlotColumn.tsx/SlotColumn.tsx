@@ -1,8 +1,6 @@
 import React, { useContext, useMemo } from 'react';
-import {
-  GameStateContext,
-  GameStateInContext,
-} from '../../../context/GameStateContext';
+import { GameStateContext } from '../../../store/GameStateContext';
+import { GameStateContextI } from '../../../store/GameStateContextI';
 import style from './slot-column.module.scss';
 import SlotItem from '../SlotItem/SlotItem';
 import { ROWS } from '../../../controller/GridStateController';
@@ -13,7 +11,7 @@ type Props = {
 
 const SlotColumn = (props: Props) => {
   const { columnIndex } = props;
-  const { playerTurn } = useContext<GameStateInContext>(GameStateContext);
+  const { playerTurn } = useContext<GameStateContextI>(GameStateContext);
 
   const playerClass =
     playerTurn === 1

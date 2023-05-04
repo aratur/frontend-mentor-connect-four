@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import {
-  GameStateContext,
-  GameStateInContext,
-} from '../../../context/GameStateContext';
+import { GameStateContext } from '../../../store/GameStateContext';
+import { GameStateContextI } from '../../../store/GameStateContextI';
 import style from './slot-item.module.scss';
 
 type Props = {
@@ -12,10 +10,11 @@ type Props = {
 
 const SlotItem = (props: Props) => {
   const { rowNo, columnNo } = props;
-  const { move, getValueAt } = useContext<GameStateInContext>(GameStateContext);
+  const { move, getValueAt } = useContext<GameStateContextI>(GameStateContext);
   const gridItem1 = getValueAt({ columnNo, rowNo });
 
   const gridItem = gridItem1 || 'isEmpty';
+  // console.log(gridItem, gridItem !== 'isEmpty');
 
   return (
     <button

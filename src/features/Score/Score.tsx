@@ -13,7 +13,7 @@ type Props = {
 const Score = (props: Props) => {
   const { points = 0, player, isCPU = false } = props;
   let iconSrc = playerOne;
-  let label = 'Player One';
+  let label = 'Player 1';
   if (player === 1) {
     label = (isCPU && 'You') || label;
   } else {
@@ -27,8 +27,13 @@ const Score = (props: Props) => {
         player === 1 ? style['score__player-1'] : style['score__player-2'],
       ].join(' ')}
     >
-      <div className={['h3', style.score__label].join(' ')}>{label}</div>
-      <div className={['h4', style.score__points].join(' ')}>{points}</div>
+      <h3 className={['h3', style.score__label].join(' ')}>{label}</h3>
+      <h4
+        data-testid={`points-${player}`}
+        className={['h4', style.score__points].join(' ')}
+      >
+        {points}
+      </h4>
       <img
         src={iconSrc}
         alt="smiling face"

@@ -9,7 +9,7 @@ import { useLocation } from 'react-router';
 import style from './game.module.scss';
 import { Footer, Header, Score, Modal } from '../features';
 
-import { GameStateContext } from '../context/GameStateContext';
+import { GameStateContext } from '../store/GameStateContext';
 import GameBoard from '../features/GameBoard/GameBoard';
 
 const Game = () => {
@@ -93,7 +93,7 @@ const Game = () => {
   }, [showModal]);
 
   return (
-    <div className="page">
+    <main className="page">
       <div className={style.game}>
         <Header
           onMenuClick={handleMenuClicked}
@@ -113,7 +113,7 @@ const Game = () => {
         onRestart={handleModalRestart}
         onQuit={handleModalQuit}
       />
-    </div>
+    </main>
   );
 };
 

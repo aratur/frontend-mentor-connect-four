@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import style from './winner.module.scss';
-import { GameStateContext } from '../../../context/GameStateContext';
+import { GameStateContext } from '../../../store/GameStateContext';
 import { Button } from '../../../components';
 
 const Winner = () => {

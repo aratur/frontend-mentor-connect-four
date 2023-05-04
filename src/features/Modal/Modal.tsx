@@ -12,7 +12,7 @@ type Props = {
 const Modal = (props: Props) => {
   const { showModal, onContinue, onQuit, onRestart } = props;
   return showModal ? (
-    <div className={style.modal}>
+    <div data-testid="modal" className={style.modal}>
       <div className={style.modal__menu}>
         <h1 className="h1 heading-large fnt-white">Pause</h1>
         <div className={style.modal__buttons}>

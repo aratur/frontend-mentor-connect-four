@@ -11,7 +11,7 @@ type Props = {
 const GameHeader = (props: Props) => {
   const { onMenuClick, onRestartClicked } = props;
   return (
-    <header className={style.header}>
+    <header role="banner" className={style.header}>
       <Button variant="basic" onClick={onMenuClick}>
         <span className="h4">Menu</span>
       </Button>

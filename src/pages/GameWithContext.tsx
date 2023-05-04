@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameStateContextProvider } from '../context/GameStateContext';
+import { GameStateContextProvider } from '../store/GameStateContext';
 import Game from './Game';
 
 const GameWithContext = () => (

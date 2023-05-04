@@ -7,52 +7,40 @@ import React, {
 } from 'react';
 import GridStateController from '../controller/GridStateController';
 import { GridState } from '../model/GridState';
-import { GridItem } from '../model/GridItem';
 import { Position } from '../model/Position';
 import ControllerFactory from '../controller/ControllerFactory';
 import GameControllerI from '../controller/GameControllerI';
+import defaultGameState from './defaultGameState';
+import { GameStateContextI } from './GameStateContextI';
 
-type Status = 'new' | 'inProgress' | 'wonP1' | 'wonP2' | 'draw' | 'restart';
-export type GameStateInContext = {
-  playerTurn: 1 | 2;
-  isCPU: boolean;
-  status: Status;
-  toggleTurn: () => void;
-  setStatus: (status: Status) => void;
-  setIsCPU: (isCPU: boolean) => void;
-  move: (column: number, row: number) => void;
-  getValueAt: (p: Position) => GridItem | undefined;
-};
-
-const defaultGameState: GameStateInContext = {
-  playerTurn: 1,
-  isCPU: false,
-  status: 'new',
-  toggleTurn: () => {
-    throw new Error('missing implementation');
-  },
-  setStatus: () => {
-    throw new Error('missing implementation');
-  },
-  setIsCPU: () => {
-    throw new Error('missing implementation');
-  },
-  move: () => {
-    throw new Error('missing implementation');
-  },
-  getValueAt: () => {
-    throw new Error('missing implementation');
-  },
-};
-
+export type Status =
+  | 'new'
+  | 'inProgress'
+  | 'wonP1'
+  | 'wonP2'
+  | 'draw'
+  | 'restart';
 export const GameStateContext =
-  React.createContext<GameStateInContext>(defaultGameState);
+  React.createContext<GameStateContextI>(defaultGameState);
 
-export const GameStateContextProvider = (props: PropsWithChildren) => {
+interface GameStateContextProviderProps {
+  isCPU?: boolean;
+  status?: Status;
+  playerTurn?: 1 | 2;
+}
+
+export const GameStateContextProvider = (
+  props: PropsWithChildren<GameStateContextProviderProps>
+) => {
+  const {
+    isCPU: initialIsCPU = false,
+    status: initialStatus = 'new',
+    playerTurn: initialPlayerTurn = 2,
+  } = props;
   const { children } = props;
-  const [playerTurn, setPlayerTurn] = useState<1 | 2>(2);
-  const [status, setStatus] = useState<Status>('new');
-  const [isCPU, setIsCPU] = useState<boolean>(false);
+  const [playerTurn, setPlayerTurn] = useState<1 | 2>(initialPlayerTurn);
+  const [status, setStatus] = useState<Status>(initialStatus);
+  const [isCPU, setIsCPU] = useState<boolean>(initialIsCPU);
   const [gridState, setGridState] = useState<GridState>(
     GridStateController.getInitialState()
   );
