@@ -19,6 +19,7 @@ const Footer = (props: Props) => {
       <div className={style.footer__background} data-status={status} />
       <div
         className={style.footer__turn}
+        data-testid="turn"
         data-status={status}
         data-turn={playerTurn}
       >

@@ -19,6 +19,7 @@ const SlotItem = (props: Props) => {
   return (
     <button
       type="button"
+      data-testid={`slot_${columnNo}-${rowNo}`}
       onClick={() => move(columnNo, rowNo)}
       disabled={gridItem !== 'isEmpty'}
       data-item={gridItem}

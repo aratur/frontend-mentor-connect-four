@@ -118,6 +118,9 @@ class CPUController extends PlayerController implements GameControllerI {
       controller.move({ ...p }, playerTurn);
     }
     this.gridState = controller.getGridState();
+    if (controller.getStatus() === 'isFinished') {
+      this.isFinished = true;
+    }
   }
 }
 

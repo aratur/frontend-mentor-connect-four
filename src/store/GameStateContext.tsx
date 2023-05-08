@@ -52,7 +52,8 @@ export const GameStateContextProvider = (
   const updateGameStatus = useCallback(
     (controller: GameControllerI) => {
       // if finished update game status
-      switch (controller.getStatus()) {
+      const newStatus = controller.getStatus();
+      switch (newStatus) {
         case 'isFinished':
           setStatus(playerTurn === 1 ? 'wonP1' : 'wonP2');
           break;
@@ -63,6 +64,8 @@ export const GameStateContextProvider = (
           toggleTurn();
           break;
       }
+      console.log('NewStatus: ', newStatus);
+
       setGridState(controller.getGridState());
     },
     [playerTurn, toggleTurn]
@@ -70,7 +73,7 @@ export const GameStateContextProvider = (
 
   const move = useCallback(
     (column: number, row: number) => {
-      if (playerTurn === 2 && column !== 0) {
+      if (isCPU && playerTurn === 2 && column !== 0) {
         //   // do nothing when
         //   // clicked by a used while it was CPU's turn
       } else if (status === 'inProgress') {
