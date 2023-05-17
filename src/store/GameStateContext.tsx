@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import GridStateController from '../controller/GridStateController';
+import PlayerController from '../controller/PlayerController';
 import { GridState } from '../model/GridState';
 import { Position } from '../model/Position';
 import ControllerFactory from '../controller/ControllerFactory';
@@ -42,7 +42,7 @@ export const GameStateContextProvider = (
   const [status, setStatus] = useState<Status>(initialStatus);
   const [isCPU, setIsCPU] = useState<boolean>(initialIsCPU);
   const [gridState, setGridState] = useState<GridState>(
-    GridStateController.getInitialState()
+    PlayerController.getInitialState()
   );
 
   const toggleTurn = useCallback(() => {
@@ -89,7 +89,7 @@ export const GameStateContextProvider = (
 
   useEffect(() => {
     if (status === 'restart' || status === 'new') {
-      setGridState(GridStateController.getInitialState());
+      setGridState(PlayerController.getInitialState());
     }
   }, [status]);
 

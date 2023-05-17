@@ -3,7 +3,7 @@ import { GameStateContext } from '../../../store/GameStateContext';
 import { GameStateContextI } from '../../../store/GameStateContextI';
 import style from './slot-column.module.scss';
 import SlotItem from '../SlotItem/SlotItem';
-import { ROWS } from '../../../controller/GridStateController';
+import { ROWS } from '../../../controller/constants';
 
 type Props = {
   columnIndex: number;

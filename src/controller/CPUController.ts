@@ -11,9 +11,9 @@ class CPUController extends PlayerController implements GameControllerI {
     // see what could happen on each move
     const rowNo = 0;
     for (let columnNo = 0; columnNo < COLS; columnNo += 1) {
-      const newGridStateController = new PvPController(this.gridState);
-      newGridStateController.move({ columnNo, rowNo }, playerTurn);
-      if (newGridStateController.getStatus() === 'isFinished') {
+      const newPvPController = new PvPController(this.gridState);
+      newPvPController.move({ columnNo, rowNo }, playerTurn);
+      if (newPvPController.getStatus() === 'isFinished') {
         return { columnNo, rowNo };
       }
     }
@@ -27,9 +27,9 @@ class CPUController extends PlayerController implements GameControllerI {
     // see what could happen on each move
     const rowNo = 0;
     for (let columnNo = 0; columnNo < COLS; columnNo += 1) {
-      const newGridStateController = new PvPController(this.gridState);
-      newGridStateController.move({ columnNo, rowNo }, playerTurn);
-      if (newGridStateController.getStatus() === 'isFinished') {
+      const newPvPController = new PvPController(this.gridState);
+      newPvPController.move({ columnNo, rowNo }, playerTurn);
+      if (newPvPController.getStatus() === 'isFinished') {
         return { columnNo, rowNo };
       }
     }

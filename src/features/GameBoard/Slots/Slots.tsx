@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useMemo } from 'react';
 import style from './slots.module.scss';
-import { COLS } from '../../../controller/GridStateController';
+import { COLS } from '../../../controller/constants';
 import SlotColumn from '../SlotColumn.tsx/SlotColumn';
 
 const GameBoardSlots = () => {

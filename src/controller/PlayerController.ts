@@ -8,12 +8,12 @@ class PlayerController {
 
   public isFinished = false;
 
-  private getInitialState(): Array<Array<GridItem>> {
+  static getInitialState(): Array<Array<GridItem>> {
     return new Array(COLS).fill(new Array(ROWS).fill('isEmpty'));
   }
 
   constructor(gridState: GridState | null) {
-    const notEmptyGridState = gridState || this.getInitialState();
+    const notEmptyGridState = gridState || PlayerController.getInitialState();
     const copyOfGridState = [...notEmptyGridState.map((r) => [...r])];
     this.gridState = copyOfGridState;
   }
