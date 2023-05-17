@@ -44,6 +44,7 @@ Solution screenshot
 ## Built with
 
 - [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [React Router](https://reactrouter.com/en/main)
 - [useContext](https://react.dev/reference/react/useContext)
 - [SCSS](https://sass-lang.com/)
